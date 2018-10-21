@@ -1,0 +1,7 @@
+{
+  "name": "tesi_notes",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
