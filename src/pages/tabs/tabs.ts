@@ -1,19 +1,23 @@
 import { Component } from '@angular/core';
 
-import { AboutPage } from '../about/about';
-import { ContactPage } from '../contact/contact';
-import { HomePage } from '../home/home';
+import { NotasSecretasPage } from '../notas-secretas/notas-secretas';
+import { NotasPage } from '../notas/notas';
+import { NavController } from 'ionic-angular';
+import { EditarNotaPage } from '../editar-nota/editar-nota';
 
 @Component({
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
 
-  tab1Root = HomePage;
-  tab2Root = AboutPage;
-  tab3Root = ContactPage;
+  tab1Root = NotasPage;
+  tab2Root = NotasSecretasPage;
 
-  constructor() {
+  constructor(public navCtrl: NavController) {
 
+  }
+
+  navegarEdicaoNota(secreta: boolean) {
+    this.navCtrl.push(EditarNotaPage, { notaSecreta: secreta });
   }
 }

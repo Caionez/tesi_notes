@@ -3,20 +3,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
+import { EditarNotaPage } from '../pages/editar-nota/editar-nota';
+import { NotasPage } from '../pages/notas/notas';
+import { NotasSecretasPage } from '../pages/notas-secretas/notas-secretas';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { NotasService } from '../providers/notas-service';
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
+    NotasSecretasPage,
+    EditarNotaPage,
+    NotasPage,
     TabsPage
   ],
   imports: [
@@ -26,15 +27,16 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
+    NotasSecretasPage,
+    EditarNotaPage,
+    NotasPage,
     TabsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    NotasService
   ]
 })
 export class AppModule {}

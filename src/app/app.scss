@@ -14,3 +14,40 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.note-color-default {
+    background-color: #ffffff;
+}
+
+.note-color-green {
+    background-color: #adf3ad;
+}
+
+.note-color-blue {
+    background-color: #afccff;
+}
+
+.note-color-yellow {
+    background-color: #faffaf;
+}
+
+button[ion-fab] {
+    overflow: visible;
+    position: relative;
+
+    ion-label {
+        position: absolute;
+        top: -8px;
+        right: 40px;
+
+        color: white;
+        background-color: rgba(0,0,0,0.7);
+        line-height: 24px;
+        padding: 4px 8px;
+        border-radius: 4px;
+    }
+}
+
+.fab {
+    contain: layout;
+}

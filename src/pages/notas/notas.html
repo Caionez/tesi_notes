@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Notas</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>  
+  <ion-card *ngFor="let nota of notas" [ngClass]="'note-color-' + nota.cor">
+    <ion-card-header>
+      <b>{{nota.titulo}}</b>
+    </ion-card-header>
+    <ion-card-content style="white-space: pre-line">
+      {{nota.texto}}
+    </ion-card-content>
+  </ion-card>
+</ion-content>
