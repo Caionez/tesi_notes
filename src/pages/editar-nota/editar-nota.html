@@ -1,45 +1,46 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      {{!nota ? "Nova Nota" : !nota.titulo ? "Nova Nota" : nota.titulo}}
+      {{!tituloNota && codigoNota == 0 ? "Nova Nota" : !tituloNota ? "Nota sem Nome" : tituloNota}}
     </ion-title>
     <ion-buttons end *ngIf="notaSecreta">
-        <button ion-button icon-only>
-            <ion-icon name="lock"></ion-icon>
-        </button>
+      <button ion-button icon-only>
+        <ion-icon name="lock"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding [ngClass]="'note-color-' + nota.cor">
-  <ion-list [ngClass]="'note-color-' + nota.cor">
-    <ion-item [ngClass]="'note-color-' + nota.cor">
-      <ion-label floating>Título</ion-label>
-      <ion-input [(ngModel)]="nota.titulo" type="text" required></ion-input>
-    </ion-item>
-    <ion-item [ngClass]="'note-color-' + nota.cor">
-      <ion-label floating>Texto</ion-label>
-      <ion-textarea [(ngModel)]="nota.texto" rows="8" required></ion-textarea>
-    </ion-item>
-    <ion-item no-lines [ngClass]="'note-color-' + nota.cor">
-      <ion-label>Cor de fundo: </ion-label>
-      <ion-select [(ngModel)]="nota.cor">
-        <ion-option value="default">Sem cor</ion-option>
-        <ion-option value="yellow">Amarelo</ion-option>
-        <ion-option value="blue">Azul</ion-option>
-        <ion-option value="green">Verde</ion-option>
-      </ion-select>
-    </ion-item>
+<ion-content padding [ngClass]="'note-color-' + corNota">
+  <form #notaForm="ngForm">
+    <ion-list>
+      <ion-item [ngClass]="'note-color-' + corNota">
+        <ion-label floating>Título</ion-label>
+        <ion-input name="titulo" [(ngModel)]="tituloNota" type="text" required></ion-input>
+      </ion-item>
+      <ion-item [ngClass]="'note-color-' + corNota">
+        <ion-label floating>Texto</ion-label>
+        <ion-textarea name="texto" [(ngModel)]="textoNota" rows="8" required></ion-textarea>
+      </ion-item>
+      <ion-item no-lines [ngClass]="'note-color-' + corNota">
+        <ion-label>Cor de fundo: </ion-label>
+        <ion-select name="cor" [(ngModel)]="corNota">
+          <ion-option value="default">Sem cor</ion-option>
+          <ion-option value="yellow">Amarelo</ion-option>
+          <ion-option value="blue">Azul</ion-option>
+          <ion-option value="green">Verde</ion-option>
+        </ion-select>
+      </ion-item>
 
-    <button ion-button icon-start block round color="secondary">
-      <ion-icon name="checkmark"></ion-icon>
-      Salvar Nota
-    </button>
-    <button ion-button icon-start block round color="danger">
+      <button ion-button icon-start block round color="secondary" [disabled]="!notaForm.valid" (click)="salvarNota()">
+        <ion-icon name="checkmark"></ion-icon>
+        Salvar Nota
+      </button>
+      <button ion-button icon-start block round color="danger" [disabled]="codigoNota == 0" (click)="excluirNota()">
         <ion-icon name="trash"></ion-icon>
         Apagar Nota
       </button>
 
-  </ion-list>
-
+    </ion-list>
+  </form>
 </ion-content>

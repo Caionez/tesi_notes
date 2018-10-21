@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { NotasSecretasPage } from '../notas-secretas/notas-secretas';
 import { NotasPage } from '../notas/notas';
-import { NavController } from 'ionic-angular';
+import { NavController, FabContainer } from 'ionic-angular';
 import { EditarNotaPage } from '../editar-nota/editar-nota';
 
 @Component({
@@ -17,7 +17,8 @@ export class TabsPage {
 
   }
 
-  navegarEdicaoNota(secreta: boolean) {
-    this.navCtrl.push(EditarNotaPage, { notaSecreta: secreta });
+  navegarEdicaoNota(secreta: boolean, fab: FabContainer) {
+    fab.close();
+    this.navCtrl.push(EditarNotaPage, { codigoNota: 0, notaSecreta: secreta });
   }
 }

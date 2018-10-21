@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content padding>  
-  <ion-card *ngFor="let nota of notas" [ngClass]="'note-color-' + nota.cor">
+  <ion-card *ngFor="let nota of notas" [ngClass]="'note-color-' + nota.cor" (click)="selecionaNota(nota.codigo)">
     <ion-card-header>
       <b>{{nota.titulo}}</b>
     </ion-card-header>
