@@ -1,17 +1,4 @@
 <ion-tabs tabsPlacement="top">
-  <ion-tab [root]="tab1Root" tabTitle="Notas" tabIcon="list-box"></ion-tab>
-  <ion-fab bottom right #fab>
-      <button ion-fab><ion-icon name="add"></ion-icon></button>
-      <ion-fab-list side="top">
-          <button ion-fab (click)="navegarEdicaoNota('notas', fab)">
-            <ion-icon name="list-box"></ion-icon>
-            <ion-label>Nova Nota</ion-label>
-          </button>
-          <button ion-fab (click)="navegarEdicaoNota('notas-secretas', fab)">
-            <ion-icon name="lock"></ion-icon>
-            <ion-label>Nova Nota Secreta</ion-label>
-          </button>   
-        </ion-fab-list>
-  </ion-fab>
+  <ion-tab [root]="tab1Root" tabTitle="Notas" tabIcon="list-box"></ion-tab>  
   <ion-tab [root]="tab2Root" tabTitle="Notas Secretas" tabIcon="lock"></ion-tab>
 </ion-tabs>

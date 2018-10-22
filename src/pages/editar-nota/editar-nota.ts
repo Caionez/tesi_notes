@@ -20,14 +20,14 @@ export class EditarNotaPage {
     this.nomeStorage = paramsCtrl.get("nomeStorage");
     let codigoNota: number = paramsCtrl.get("codigoNota");
 
-    if (codigoNota != 0) {      
-      notasSvc.getNota(codigoNota, this.nomeStorage).then(result => {
-        this.codigoNota = result.codigo;
-        this.tituloNota = result.titulo;
-        this.textoNota = result.texto;
-        this.corNota = result.cor;
-      });
-    } else {      
+    if (codigoNota != 0) {
+      let nota = notasSvc.getNota(codigoNota);
+      this.codigoNota = nota.codigo;
+      this.tituloNota = nota.titulo;
+      this.textoNota = nota.texto;
+      this.corNota = nota.cor;
+
+    } else {
       this.codigoNota = 0;
       this.tituloNota = "";
       this.textoNota = "";

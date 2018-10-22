@@ -16,7 +16,8 @@ export class NotasService {
       .then(result => {
         if (result != undefined && result != null) {
           this.notas = JSON.parse(result);
-          this.ultimoCodigo = this.notas[this.notas.length - 1].codigo;
+          if (this.notas.length > 0)
+            this.ultimoCodigo = this.notas[this.notas.length - 1].codigo;
         }
         else {
           this.notas = [];
@@ -26,7 +27,7 @@ export class NotasService {
       });
   }
 
-  getNota(codigo: number, nomeStorage: string) {
+  getNota(codigo: number): any {
     for (let i = 0; i < this.notas.length; i++) {
       if (this.notas[i].codigo == codigo) {
         return this.notas[i];

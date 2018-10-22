@@ -4,6 +4,7 @@ import { NotasService } from '../../providers/notas-service';
 import { EditarNotaPage } from '../editar-nota/editar-nota';
 
 import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth';
+import { resolveReflectiveProviders } from '@angular/core/src/di/reflective_provider';
 
 @Component({
   selector: 'page-notas-secretas',
@@ -44,7 +45,7 @@ export class NotasSecretasPage {
             resolve(true);
           }
         })
-        .catch(error => console.error(error));
+        .catch(error => {console.error(error); resolve(true);});
     });
   }
 
@@ -56,5 +57,9 @@ export class NotasSecretasPage {
 
   selecionaNota(codigo: number) {
     this.navCtrl.push(EditarNotaPage, { codigoNota: codigo, nomeStorage: 'notas-secretas' });
+  }
+
+  novaNotaSecreta() {
+    this.navCtrl.push(EditarNotaPage, { codigoNota: 0, nomeStorage: 'notas-secretas' });
   }
 }

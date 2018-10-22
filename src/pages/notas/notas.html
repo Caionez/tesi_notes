@@ -6,7 +6,12 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>  
+<ion-content padding>
+
+  <div padding-vertical text-center *ngIf="notas == undefined || notas.length == 0">    
+    <h2>Nenhuma nota encontrada</h2>
+    <p>Utilize o botão "+" abaixo para criar notas.</p>
+  </div>
   <ion-card *ngFor="let nota of notas" [ngClass]="'note-color-' + nota.cor" (click)="selecionaNota(nota.codigo)">
     <ion-card-header>
       <b>{{nota.titulo}}</b>
@@ -15,4 +20,9 @@
       {{nota.texto}}
     </ion-card-content>
   </ion-card>
+  <ion-fab bottom right #fab>
+    <button ion-fab (click)="novaNota()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>
