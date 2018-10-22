@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 
-import { NotasSecretasPage } from '../notas-secretas/notas-secretas';
+//import { NotasSecretasPage } from '../notas-secretas/notas-secretas';
 import { NotasPage } from '../notas/notas';
 import { NavController, FabContainer } from 'ionic-angular';
-// import { EditarNotaPage } from '../editar-nota/editar-nota';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -11,13 +10,11 @@ import { NavController, FabContainer } from 'ionic-angular';
 export class TabsPage {
 
   tab1Root = NotasPage;
-  tab2Root = NotasSecretasPage;
+  tab1Params = {tipoNota: 'notas'};
+  tab2Root = NotasPage;
+  tab2Params = {tipoNota: 'notas-secretas'};
+  //tab2Root = NotasSecretasPage;
 
   constructor(public navCtrl: NavController) {
   }
-
-  // navegarEdicaoNota(tipoNota: string, fab: FabContainer) {
-  //   fab.close();
-  //   this.navCtrl.push(EditarNotaPage, { codigoNota: 0, nomeStorage: tipoNota });
-  // }
 }

@@ -6,7 +6,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding [style.background-color]="this.tipoNota == 'notas-secretas' ? 'gray' : ''">
 
   <div padding-vertical text-center *ngIf="notas == undefined || notas.length == 0">    
     <h2>Nenhuma nota encontrada</h2>

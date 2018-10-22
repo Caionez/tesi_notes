@@ -1,36 +1,74 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, NavParams } from 'ionic-angular';
 import { NotasService } from '../../providers/notas-service';
 import { EditarNotaPage } from '../editar-nota/editar-nota';
+import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth';
 
 @Component({
   selector: 'page-notas',
   templateUrl: 'notas.html'
 })
 export class NotasPage {
-
+  tipoNota: string;
   notas: any[];
 
-  constructor(public navCtrl: NavController, public notasService: NotasService, public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, private androidFAuth: AndroidFingerprintAuth, public paramsCtrl: NavParams, public notasService: NotasService, public loadingCtrl: LoadingController) {
+    this.tipoNota = paramsCtrl.get('tipoNota');
   }
 
-  ionViewWillEnter() {
+  ionViewDidEnter() {
     let loading = this.loadingCtrl.create({
       content: 'Carregando notas...'
     });
     loading.present();
 
-    this.notasService.getNotas('notas').then(result => {
+    this.notasService.getNotas(this.tipoNota).then(result => {
       this.notas = result;
       loading.dismiss();
     });
   }
 
+  ionViewCanEnter(): Promise<any> {
+
+    if (this.tipoNota == 'notas-secretas') {
+      return new Promise((resolve, reject) => {
+        this.androidFAuth.isAvailable()
+          .then((result) => {
+            if (result.isAvailable) {
+              // it is available  
+              this.androidFAuth.encrypt({ clientId: 'myAppName', username: 'myUsername', password: 'myPassword' })
+                .then(result => {
+                  if (result.withFingerprint) {
+                    console.log('Successfully encrypted credentials.');
+                    console.log('Encrypted credentials: ' + result.token);
+                    resolve(true);
+                  } else if (result.withBackup) {
+                    console.log('Successfully authenticated with backup password!');
+                    resolve(true);
+                  } else console.log('Didn\'t authenticate!');
+                })
+                .catch(error => {
+                  if (error === this.androidFAuth.ERRORS.FINGERPRINT_CANCELLED) {
+                    console.log('Fingerprint authentication cancelled');
+                  } else console.error(error)
+                });
+
+            } else {
+              // fingerprint auth isn't available
+              console.log('acesso em dispositivo sem Fingerprint');
+              resolve(true);
+            }
+          })
+          .catch(error => { console.error(error); resolve(true); });
+      });
+    } else return new Promise(resolve => resolve(true));
+  }
+
   selecionaNota(codigo: number) {
-    this.navCtrl.push(EditarNotaPage, { codigoNota: codigo, nomeStorage: 'notas' });
+    this.navCtrl.push(EditarNotaPage, { codigoNota: codigo, nomeStorage: this.tipoNota });
   }
 
   novaNota() {
-    this.navCtrl.push(EditarNotaPage, { codigoNota: 0, nomeStorage: 'notas' });
+    this.navCtrl.push(EditarNotaPage, { codigoNota: 0, nomeStorage: this.tipoNota });
   }
 }
