@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class NotasService {
@@ -6,33 +7,40 @@ export class NotasService {
   notas: any[];
   ultimoCodigo: number;
 
-  constructor() {
-    this.notas = [{ codigo: 1, titulo: 'Nota 1', texto: 'Texto da nota 1 \nOutra linha de texto da nota 1', cor: 'green' },
-    { codigo: 2, titulo: 'Nota 2', texto: 'Texto da nota 2 \nOutra linha de texto da nota 2', cor: 'yellow' },
-    { codigo: 3, titulo: 'Nota 3', texto: 'Texto da nota 3', cor: 'blue' },
-    ];
-    this.ultimoCodigo = this.notas.length;
+  constructor(private storage: Storage) {
+    this.notas = [];
   }
 
-  getNotas() {
-    return this.notas;
+  getNotas(nomeStorage: string) {
+    return this.storage.get(nomeStorage)
+      .then(result => {
+        if (result != undefined && result != null) {
+          this.notas = JSON.parse(result);
+          this.ultimoCodigo = this.notas[this.notas.length - 1].codigo;
+        }
+        else {
+          this.notas = [];
+          this.ultimoCodigo = 0;
+        }
+        return this.notas;
+      });
   }
 
-  getNota(codigo: number) {
+  getNota(codigo: number, nomeStorage: string) {
     for (let i = 0; i < this.notas.length; i++) {
       if (this.notas[i].codigo == codigo) {
         return this.notas[i];
       }
     }
-
-    return undefined;
   }
-    adicionarNota(titulo: string, texto: string, cor: string): number {
-      this.notas.push({ codigo: ++this.ultimoCodigo, titulo: titulo, texto: texto, cor: cor });
-      return this.ultimoCodigo;
-    }
 
-    editarNota(codigo: number, titulo: string, texto: string, cor: string) {
+  adicionarNota(titulo: string, texto: string, cor: string, nomeStorage: string): number {
+    this.notas.push({ codigo: ++this.ultimoCodigo, titulo: titulo, texto: texto, cor: cor });
+    this.setNotasStorage(nomeStorage);
+    return this.ultimoCodigo;
+  }
+
+  editarNota(codigo: number, titulo: string, texto: string, cor: string, nomeStorage: string) {    
       for (let i = 0; i < this.notas.length; i++) {
         if (this.notas[i].codigo == codigo) {
           this.notas[i].titulo = titulo;
@@ -41,14 +49,20 @@ export class NotasService {
           break;
         }
       }
-    }
+      this.setNotasStorage(nomeStorage);
+  }
 
-    excluirNota(codigo) {
+  excluirNota(codigo, nomeStorage: string) {    
       for (let i = 0; i < this.notas.length; i++) {
         if (this.notas[i].codigo == codigo) {
           this.notas.splice(i, 1);
           break;
         }
       }
-    }
-  } 
+      this.setNotasStorage(nomeStorage);    
+  }
+
+  setNotasStorage(nomeStorage: string, callback?) {
+    this.storage.set(nomeStorage, JSON.stringify(this.notas)).then(result => callback ? callback(result) : console.log(result), error => console.log(error));
+  }
+} 

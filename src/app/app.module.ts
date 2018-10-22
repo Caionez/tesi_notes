@@ -1,6 +1,8 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicStorageModule } from '@ionic/storage';
+import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth';
 import { MyApp } from './app.component';
 
 import { EditarNotaPage } from '../pages/editar-nota/editar-nota';
@@ -22,7 +24,8 @@ import { NotasService } from '../providers/notas-service';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -36,7 +39,8 @@ import { NotasService } from '../providers/notas-service';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    NotasService
+    NotasService,
+    AndroidFingerprintAuth
   ]
 })
 export class AppModule {}

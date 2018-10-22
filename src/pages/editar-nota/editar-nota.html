@@ -3,7 +3,7 @@
     <ion-title>
       {{!tituloNota && codigoNota == 0 ? "Nova Nota" : !tituloNota ? "Nota sem Nome" : tituloNota}}
     </ion-title>
-    <ion-buttons end *ngIf="notaSecreta">
+    <ion-buttons end *ngIf="this.nomeStorage == 'notas-secretas'">
       <button ion-button icon-only>
         <ion-icon name="lock"></ion-icon>
       </button>

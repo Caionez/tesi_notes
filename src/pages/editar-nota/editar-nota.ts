@@ -13,25 +13,21 @@ export class EditarNotaPage {
   textoNota: string;
   corNota: string;
 
-  notaSecreta: boolean;
+  nomeStorage: string;
 
   constructor(public navCtrl: NavController, public paramsCtrl: NavParams, public notasSvc: NotasService) {
 
-    this.notaSecreta = paramsCtrl.get("notaSecreta");
+    this.nomeStorage = paramsCtrl.get("nomeStorage");
     let codigoNota: number = paramsCtrl.get("codigoNota");
 
-    if (codigoNota != 0) {
-      //if notaSecreta...
-      let nota = notasSvc.getNota(codigoNota);
-
-      this.codigoNota = nota.codigo;
-      this.tituloNota = nota.titulo;
-      this.textoNota = nota.texto;
-      this.corNota = nota.cor;
-
-    } 
-    else {
-      //this.nota = { codigo: 0, titulo: undefined, texto: undefined, cor: "default" };
+    if (codigoNota != 0) {      
+      notasSvc.getNota(codigoNota, this.nomeStorage).then(result => {
+        this.codigoNota = result.codigo;
+        this.tituloNota = result.titulo;
+        this.textoNota = result.texto;
+        this.corNota = result.cor;
+      });
+    } else {      
       this.codigoNota = 0;
       this.tituloNota = "";
       this.textoNota = "";
@@ -41,15 +37,15 @@ export class EditarNotaPage {
 
   salvarNota() {
     if (this.codigoNota == 0) {
-      this.codigoNota = this.notasSvc.adicionarNota(this.tituloNota, this.textoNota, this.corNota);
+      this.codigoNota = this.notasSvc.adicionarNota(this.tituloNota, this.textoNota, this.corNota, this.nomeStorage);
     } else {
-      this.notasSvc.editarNota(this.codigoNota, this.tituloNota, this.textoNota, this.corNota)
+      this.notasSvc.editarNota(this.codigoNota, this.tituloNota, this.textoNota, this.corNota, this.nomeStorage)
     }
     this.navCtrl.pop();
   }
 
   excluirNota() {
-    this.notasSvc.excluirNota(this.codigoNota);
+    this.notasSvc.excluirNota(this.codigoNota, this.nomeStorage);
     this.navCtrl.pop();
   }
 }

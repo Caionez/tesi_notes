@@ -17,8 +17,8 @@ export class TabsPage {
 
   }
 
-  navegarEdicaoNota(secreta: boolean, fab: FabContainer) {
+  navegarEdicaoNota(tipoNota: string, fab: FabContainer) {
     fab.close();
-    this.navCtrl.push(EditarNotaPage, { codigoNota: 0, notaSecreta: secreta });
+    this.navCtrl.push(EditarNotaPage, { codigoNota: 0, nomeStorage: tipoNota });
   }
 }
