@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, NavParams } from 'ionic-angular';
+import { NavController, LoadingController, NavParams, AlertController } from 'ionic-angular';
 import { NotasService } from '../../providers/notas-service';
 import { EditarNotaPage } from '../editar-nota/editar-nota';
 import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth';
@@ -12,7 +12,7 @@ export class NotasPage {
   tipoNota: string;
   notas: any[];
 
-  constructor(public navCtrl: NavController, private androidFAuth: AndroidFingerprintAuth, public paramsCtrl: NavParams, public notasService: NotasService, public loadingCtrl: LoadingController) {
+  constructor(public alertCtrl: AlertController, public navCtrl: NavController, private androidFAuth: AndroidFingerprintAuth, public paramsCtrl: NavParams, public notasService: NotasService, public loadingCtrl: LoadingController) {
     this.tipoNota = paramsCtrl.get('tipoNota');
   }
 
@@ -56,10 +56,39 @@ export class NotasPage {
             } else {
               // fingerprint auth isn't available
               console.log('acesso em dispositivo sem Fingerprint');
+              const alert = this.alertCtrl.create({
+                title: "Cordova não disponível",
+                subTitle:
+                  "Não foi possível localizar o sensor de Impressões Digitais do dispositivo.\nAcesso concedido para testes.",
+                buttons: [
+                  {
+                    text: "OK",
+                    handler: () => {
+                      resolve(true);
+                    }
+                  }
+                ]
+              });
+              alert.present();
               resolve(true);
             }
           })
-          .catch(error => { console.error(error); resolve(true); });
+          .catch(error => { 
+            console.error(error); 
+            const alert = this.alertCtrl.create({
+              title: "Cordova não disponível",
+              subTitle:
+                "Não foi possível localizar o sensor de Impressões Digitais do dispositivo.\nAcesso concedido para testes.",
+              buttons: [
+                {
+                  text: "OK",
+                  handler: () => {
+                    resolve(true);
+                  }
+                }
+              ]
+            });
+            alert.present();resolve(true); });
       });
     } else return new Promise(resolve => resolve(true));
   }
