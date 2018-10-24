@@ -9,11 +9,13 @@ import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth';
   templateUrl: 'notas.html'
 })
 export class NotasPage {
+  autenticar: boolean;
   tipoNota: string;
   notas: any[];
-
+  
   constructor(public alertCtrl: AlertController, public navCtrl: NavController, private androidFAuth: AndroidFingerprintAuth, public paramsCtrl: NavParams, public notasService: NotasService, public loadingCtrl: LoadingController) {
-    this.tipoNota = paramsCtrl.get('tipoNota');
+    this.autenticar = paramsCtrl.get('autenticar');
+    this.tipoNota = this.autenticar ? 'notas-secretas' : 'notas';
   }
 
   ionViewDidEnter() {
@@ -29,8 +31,7 @@ export class NotasPage {
   }
 
   ionViewCanEnter(): Promise<any> {
-
-    if (this.tipoNota == 'notas-secretas') {
+    if (this.autenticar) {
       return new Promise((resolve, reject) => {
         this.androidFAuth.isAvailable()
           .then((result) => {

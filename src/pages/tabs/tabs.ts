@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 
-//import { NotasSecretasPage } from '../notas-secretas/notas-secretas';
 import { NotasPage } from '../notas/notas';
-import { NavController, FabContainer } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -10,11 +9,10 @@ import { NavController, FabContainer } from 'ionic-angular';
 export class TabsPage {
 
   tab1Root = NotasPage;
-  tab1Params = {tipoNota: 'notas'};
+  tab1Params = {autenticar: false};
   tab2Root = NotasPage;
-  tab2Params = {tipoNota: 'notas-secretas'};
-  //tab2Root = NotasSecretasPage;
-
+  tab2Params = {autenticar: true};
+  
   constructor(public navCtrl: NavController) {
   }
 }

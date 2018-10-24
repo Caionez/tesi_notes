@@ -42,10 +42,12 @@ export class EditarNotaPage {
       this.notasSvc.editarNota(this.codigoNota, this.tituloNota, this.textoNota, this.corNota, this.nomeStorage)
     }
     this.navCtrl.pop();
+    //this.navCtrl.setRoot(NotasPage, {autenticar: false});
   }
 
   excluirNota() {
     this.notasSvc.excluirNota(this.codigoNota, this.nomeStorage);
     this.navCtrl.pop();
+    //this.navCtrl.setRoot(NotasPage, {autenticar: false});
   }
 }
