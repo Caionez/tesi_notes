@@ -32,11 +32,15 @@
         </ion-select>
       </ion-item>
 
-      <button ion-button icon-start block round color="secondary" [disabled]="!notaForm.valid" (click)="salvarNota()">
+      <button ion-button icon-start block outline round color="secondary" [disabled]="!notaForm.valid" (click)="salvarNota()">
         <ion-icon name="checkmark"></ion-icon>
         Salvar Nota
       </button>
-      <button ion-button icon-start block round color="danger" [disabled]="codigoNota == 0" (click)="excluirNota()">
+      <button ion-button icon-start block outline round color="light" [disabled]="codigoNota == 0" (click)="arquivarNota()">
+        <ion-icon name="archive"></ion-icon>
+        Arquivar Nota
+      </button>
+      <button ion-button icon-start block outline round color="danger" [disabled]="codigoNota == 0" (click)="excluirNota()">
         <ion-icon name="trash"></ion-icon>
         Apagar Nota
       </button>

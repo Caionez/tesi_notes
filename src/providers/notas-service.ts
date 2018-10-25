@@ -66,4 +66,26 @@ export class NotasService {
   setNotasStorage(nomeStorage: string, callback?) {
     this.storage.set(nomeStorage, JSON.stringify(this.notas)).then(result => callback ? callback(result) : console.log(result), error => console.log(error));
   }
-} 
+
+  moverNota(codigo: number, nomeStorageOrigem: string, nomeStorageDestino: string) {
+    
+    let notaMovida = this.getNota(codigo);
+    let novoCodigo: number;
+
+    this.storage.get(nomeStorageDestino)
+    .then(result => {
+      let notasDestino: any[];      
+      
+      if(result != undefined)
+      notasDestino = JSON.parse(result);
+
+      if (notasDestino.length > 0)
+        novoCodigo = notasDestino[notasDestino.length - 1].codigo;      
+
+      notasDestino.push({ codigo: novoCodigo, titulo: notaMovida.titulo, texto: notaMovida.texto, cor: notaMovida.cor });      
+      this.storage.set(nomeStorageDestino, JSON.stringify(notasDestino));
+    });
+
+    this.excluirNota(codigo, nomeStorageOrigem)
+  }
+}

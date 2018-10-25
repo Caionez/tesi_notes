@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-title>
       Notas
-    </ion-title>
+    </ion-title>    
   </ion-navbar>
 </ion-header>
 
@@ -10,7 +10,7 @@
 
   <div padding-vertical text-center *ngIf="notas == undefined || notas.length == 0">    
     <h2>Nenhuma nota encontrada</h2>
-    <p>Utilize o botão "+" abaixo para criar notas.</p>
+    <p *ngIf="this.tipoNota  != 'notas-arquivadas'">Utilize o botão "+" abaixo para criar notas.</p>
   </div>
   <ion-card *ngFor="let nota of notas" [ngClass]="'note-color-' + nota.cor" (click)="selecionaNota(nota.codigo)">
     <ion-card-header>
@@ -19,10 +19,10 @@
     <ion-card-content style="white-space: pre-line">
       {{nota.texto}}
     </ion-card-content>
-  </ion-card>
-  <ion-fab bottom right #fab>
-    <button ion-fab (click)="novaNota()">
-      <ion-icon name="add"></ion-icon>
-    </button>
-  </ion-fab>
+  </ion-card>  
+    <ion-fab bottom right #fab *ngIf="this.tipoNota  != 'notas-arquivadas'">
+      <button ion-fab (click)="novaNota()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-fab>
 </ion-content>

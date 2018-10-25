@@ -1,6 +1,5 @@
+import { NotasPage } from './../notas/notas';
 import { Component } from '@angular/core';
-
-import { NotasPage } from '../notas/notas';
 import { NavController } from 'ionic-angular';
 
 @Component({
@@ -9,9 +8,11 @@ import { NavController } from 'ionic-angular';
 export class TabsPage {
 
   tab1Root = NotasPage;
-  tab1Params = {autenticar: false};
+  tab1Params = {tipoNota: 'notas'};
   tab2Root = NotasPage;
-  tab2Params = {autenticar: true};
+  tab2Params = {tipoNota: 'notas-secretas'};
+  tab3Root = NotasPage;
+  tab3Params = {tipoNota: 'notas-arquivadas'};
   
   constructor(public navCtrl: NavController) {
   }

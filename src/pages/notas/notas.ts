@@ -13,9 +13,9 @@ export class NotasPage {
   tipoNota: string;
   notas: any[];
   
-  constructor(public alertCtrl: AlertController, public navCtrl: NavController, private androidFAuth: AndroidFingerprintAuth, public paramsCtrl: NavParams, public notasService: NotasService, public loadingCtrl: LoadingController) {
-    this.autenticar = paramsCtrl.get('autenticar');
-    this.tipoNota = this.autenticar ? 'notas-secretas' : 'notas';
+  constructor(public alertCtrl: AlertController, public navCtrl: NavController, private androidFAuth: AndroidFingerprintAuth, public paramsCtrl: NavParams, public notasService: NotasService, public loadingCtrl: LoadingController) {    
+    this.tipoNota = paramsCtrl.get('tipoNota');
+    this.autenticar = this.tipoNota == 'notas-secretas' ? true : false;
   }
 
   ionViewDidEnter() {

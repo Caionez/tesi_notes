@@ -3,7 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { NotasService } from '../../providers/notas-service';
 
 @Component({
-  selector: 'page-contact',
+  selector: 'editar-nota',
   templateUrl: 'editar-nota.html'
 })
 export class EditarNotaPage {
@@ -41,13 +41,15 @@ export class EditarNotaPage {
     } else {
       this.notasSvc.editarNota(this.codigoNota, this.tituloNota, this.textoNota, this.corNota, this.nomeStorage)
     }
-    this.navCtrl.pop();
-    //this.navCtrl.setRoot(NotasPage, {autenticar: false});
+    this.navCtrl.pop();    
   }
 
   excluirNota() {
     this.notasSvc.excluirNota(this.codigoNota, this.nomeStorage);
-    this.navCtrl.pop();
-    //this.navCtrl.setRoot(NotasPage, {autenticar: false});
+    this.navCtrl.pop();    
+  }
+
+  arquivarNota() {
+    this.notasSvc.moverNota(this.codigoNota, this.nomeStorage, 'notas-arquivadas');
   }
 }
