@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { NotasService } from '../../providers/notas-service';
 
 @Component({
@@ -15,7 +15,7 @@ export class EditarNotaPage {
 
   nomeStorage: string;
 
-  constructor(public navCtrl: NavController, public paramsCtrl: NavParams, public notasSvc: NotasService) {
+  constructor(public alertCtrl: AlertController, public navCtrl: NavController, public paramsCtrl: NavParams, public notasSvc: NotasService) {
 
     this.nomeStorage = paramsCtrl.get("nomeStorage");
     let codigoNota: number = paramsCtrl.get("codigoNota");
@@ -45,11 +45,28 @@ export class EditarNotaPage {
   }
 
   excluirNota() {
-    this.notasSvc.excluirNota(this.codigoNota, this.nomeStorage);
-    this.navCtrl.pop();    
+    const prompt = this.alertCtrl.create({
+      title: 'Tem certeza que deseja excluir?',
+      message: 'Se você apagar essa nota, ela não poderá ser recuperada.',
+      buttons: [
+        {
+          text: 'Não',
+          handler: () => { }
+        },
+        {
+          text: 'Sim',
+          handler: () => {
+            this.notasSvc.excluirNota(this.codigoNota, this.nomeStorage);
+            this.navCtrl.pop();
+          }
+        }
+      ]
+    });
+    prompt.present();
   }
 
   arquivarNota() {
     this.notasSvc.moverNota(this.codigoNota, this.nomeStorage, 'notas-arquivadas');
+    this.navCtrl.pop();
   }
 }

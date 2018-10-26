@@ -36,7 +36,8 @@
         <ion-icon name="checkmark"></ion-icon>
         Salvar Nota
       </button>
-      <button ion-button icon-start block outline round color="light" [disabled]="codigoNota == 0" (click)="arquivarNota()">
+      <button ion-button icon-start block outline round color="light" *ngIf="this.nomeStorage != 'notas-secretas' && this.nomeStorage != 'notas-arquivadas'" 
+      [disabled]="codigoNota == 0" (click)="arquivarNota()">
         <ion-icon name="archive"></ion-icon>
         Arquivar Nota
       </button>

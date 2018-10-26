@@ -70,11 +70,11 @@ export class NotasService {
   moverNota(codigo: number, nomeStorageOrigem: string, nomeStorageDestino: string) {
     
     let notaMovida = this.getNota(codigo);
-    let novoCodigo: number;
+    let novoCodigo: number = 0;
 
     this.storage.get(nomeStorageDestino)
     .then(result => {
-      let notasDestino: any[];      
+      let notasDestino: any[] = [];      
       
       if(result != undefined)
       notasDestino = JSON.parse(result);
