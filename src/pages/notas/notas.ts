@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController, NavParams, AlertController } from 'ionic-angular';
 import { NotasService } from '../../providers/notas-service';
 import { EditarNotaPage } from '../editar-nota/editar-nota';
-import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth';
+import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
 
 @Component({
   selector: 'page-notas',
@@ -13,7 +13,7 @@ export class NotasPage {
   tipoNota: string;
   notas: any[];
   
-  constructor(public alertCtrl: AlertController, public navCtrl: NavController, private androidFAuth: AndroidFingerprintAuth, public paramsCtrl: NavParams, public notasService: NotasService, public loadingCtrl: LoadingController) {    
+  constructor(public alertCtrl: AlertController, public navCtrl: NavController, private faio: FingerprintAIO, public paramsCtrl: NavParams, public notasService: NotasService, public loadingCtrl: LoadingController) {    
     this.tipoNota = paramsCtrl.get('tipoNota');
     this.autenticar = this.tipoNota == 'notas-secretas' ? true : false;
   }
@@ -33,29 +33,11 @@ export class NotasPage {
   ionViewCanEnter(): Promise<any> {
     if (this.autenticar) {
       return new Promise((resolve, reject) => {
-        this.androidFAuth.isAvailable()
+        this.faio.isAvailable()
           .then((result) => {
-            if (result.isAvailable) {
-              // it is available  
-              this.androidFAuth.encrypt({ clientId: 'myAppName', username: 'myUsername', password: 'myPassword' })
-                .then(result => {
-                  if (result.withFingerprint) {
-                    console.log('Successfully encrypted credentials.');
-                    console.log('Encrypted credentials: ' + result.token);
-                    resolve(true);
-                  } else if (result.withBackup) {
-                    console.log('Successfully authenticated with backup password!');
-                    resolve(true);
-                  } else console.log('Didn\'t authenticate!');
-                })
-                .catch(error => {
-                  if (error === this.androidFAuth.ERRORS.FINGERPRINT_CANCELLED) {
-                    console.log('Fingerprint authentication cancelled');
-                  } else console.error(error)
-                });
-
-            } else {
-              // fingerprint auth isn't available
+            if (result == 'finger' || result == 'face') {
+              this.faio.show({ clientId: 'tesi_notes', clientSecret: 'tesi_notes'}).then(result => resolve(true), error => resolve(false));
+            } else {              
               console.log('acesso em dispositivo sem Fingerprint');
               const alert = this.alertCtrl.create({
                 title: "Cordova não disponível",

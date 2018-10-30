@@ -82,7 +82,7 @@ export class NotasService {
       if (notasDestino.length > 0)
         novoCodigo = notasDestino[notasDestino.length - 1].codigo;      
 
-      notasDestino.push({ codigo: novoCodigo, titulo: notaMovida.titulo, texto: notaMovida.texto, cor: notaMovida.cor });      
+      notasDestino.push({ codigo: ++novoCodigo, titulo: notaMovida.titulo, texto: notaMovida.texto, cor: notaMovida.cor });      
       this.storage.set(nomeStorageDestino, JSON.stringify(notasDestino));
     });
 

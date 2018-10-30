@@ -65,8 +65,8 @@ export class EditarNotaPage {
     prompt.present();
   }
 
-  arquivarNota() {
-    this.notasSvc.moverNota(this.codigoNota, this.nomeStorage, 'notas-arquivadas');
+  moverNota(nomeStorageDestino: string) {
+    this.notasSvc.moverNota(this.codigoNota, this.nomeStorage, nomeStorageDestino);
     this.navCtrl.pop();
   }
 }
