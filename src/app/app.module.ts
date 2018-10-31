@@ -2,12 +2,11 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
-import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth';
+import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
 import { MyApp } from './app.component';
 
 import { EditarNotaPage } from '../pages/editar-nota/editar-nota';
 import { NotasPage } from '../pages/notas/notas';
-import { NotasSecretasPage } from '../pages/notas-secretas/notas-secretas';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -17,7 +16,6 @@ import { NotasService } from '../providers/notas-service';
 @NgModule({
   declarations: [
     MyApp,
-    NotasSecretasPage,
     EditarNotaPage,
     NotasPage,
     TabsPage
@@ -33,7 +31,6 @@ import { NotasService } from '../providers/notas-service';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    NotasSecretasPage,
     EditarNotaPage,
     NotasPage,
     TabsPage
@@ -43,7 +40,7 @@ import { NotasService } from '../providers/notas-service';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     NotasService,
-    AndroidFingerprintAuth
+    FingerprintAIO
   ]
 })
 export class AppModule {}

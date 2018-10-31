@@ -26,7 +26,6 @@
     "@ionic-native/status-bar": "~4.15.0",
     "@ionic/storage": "^2.2.0",
     "cordova-android": "7.0.0",
-    "cordova-plugin-android-fingerprint-auth": "^1.4.5",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-fingerprint-aio": "^1.4.1",
     "cordova-plugin-ionic-keyboard": "^2.1.3",
@@ -47,7 +46,6 @@
   "description": "An Ionic project",
   "cordova": {
     "plugins": {
-      "cordova-plugin-android-fingerprint-auth": {},
       "cordova-plugin-whitelist": {},
       "cordova-plugin-statusbar": {},
       "cordova-plugin-device": {},

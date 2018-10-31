@@ -32,25 +32,25 @@
         </ion-select>
       </ion-item>
     </ion-list>
-    <div>
-      <button ion-button icon-start block round color="secondary" [disabled]="!notaForm.valid" (click)="salvarNota()">
-        <ion-icon name="checkmark"></ion-icon>
-        Salvar Nota
-      </button>
-      <button ion-button icon-start block round color="light" *ngIf="this.nomeStorage == 'notas'" 
-      [disabled]="codigoNota == 0" (click)="moverNota('notas-arquivadas')">
-        <ion-icon name="archive"></ion-icon>
-        Arquivar Nota
-      </button>
-      <button ion-button icon-start block round color="light" *ngIf="this.nomeStorage == 'notas-arquivadas'" 
-      [disabled]="codigoNota == 0" (click)="moverNota('notas')">
-        <ion-icon name="undo"></ion-icon>
-        Restaurar Nota
-      </button>
-      <button ion-button icon-start block round color="danger" [disabled]="codigoNota == 0" (click)="excluirNota()">
-        <ion-icon name="trash"></ion-icon>
-        Apagar Nota
-      </button>
-    </div>
   </form>
 </ion-content>
+<ion-footer>
+  <button ion-button icon-start block round color="secondary" [disabled]="!notaForm.valid" (click)="salvarNota()">
+    <ion-icon name="checkmark"></ion-icon>
+    Salvar Nota
+  </button>
+  <button ion-button icon-start block round color="light" *ngIf="this.nomeStorage == 'notas'" [disabled]="codigoNota == 0"
+    (click)="moverNota('notas-arquivadas')">
+    <ion-icon name="archive"></ion-icon>
+    Arquivar Nota
+  </button>
+  <button ion-button icon-start block round color="light" *ngIf="this.nomeStorage == 'notas-arquivadas'" [disabled]="codigoNota == 0"
+    (click)="moverNota('notas')">
+    <ion-icon name="undo"></ion-icon>
+    Restaurar Nota
+  </button>
+  <button ion-button icon-start block round color="danger" [disabled]="codigoNota == 0" (click)="excluirNota()">
+    <ion-icon name="trash"></ion-icon>
+    Apagar Nota
+  </button>
+</ion-footer>
