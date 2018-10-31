@@ -1,4 +1,4 @@
-<ion-tabs tabsPlacement="top" [color]="tabs.selectedIndex == 1 ? 'dark' : ''" #tabs>
+<ion-tabs (ionChange)="tabSelected($event)" tabsPlacement="top" #tabs>
   <ion-tab [root]="tab1Root" [rootParams]="tab1Params" tabTitle="Notas" tabIcon="list-box"></ion-tab>  
   <ion-tab [root]="tab2Root" [rootParams]="tab2Params" tabTitle="Notas Secretas" tabIcon="lock"></ion-tab>  
   <ion-tab [root]="tab3Root" [rootParams]="tab3Params" tabTitle="Notas Arquivadas" tabIcon="archive"></ion-tab>  
